@@ -1,0 +1,165 @@
+<mat-toolbar color="primary" class="mat-elevation-z4">
+  <div class="toolbar-content">
+    <div class="brand">
+      <mat-icon class="brand-icon">loyalty</mat-icon>
+      <span class="app-title">Campaigns</span>
+    </div>
+    <span class="spacer"></span>
+    <button mat-flat-button color="accent" (click)="openCreateDialog()" [disabled]="loading">
+      <mat-icon>add</mat-icon>
+      New Campaign
+    </button>
+  </div>
+</mat-toolbar>
+
+<div class="container mat-typography">
+  <mat-card class="hero-card mat-elevation-z8">
+    <div class="hero-content">
+      <h1 class="mat-display-2">Marketing Campaigns</h1>
+      <p class="mat-subheading-1">Create, manage and track all your marketing campaigns in one centralized dashboard</p>
+    </div>
+    <div class="hero-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+  </mat-card>
+
+  <div class="actions-bar">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search campaigns</mat-label>
+      <input matInput [(ngModel)]="searchTerm" (keyup)="applyFilter($event)" placeholder="Enter campaign name, keywords, or status...">
+      <button *ngIf="searchTerm" mat-icon-button matSuffix (click)="searchTerm=''; applyFilter()" aria-label="Clear">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+
+    <div class="view-controls">
+      <button mat-button [class.active]="true" aria-label="Grid view">
+        <mat-icon>grid_view</mat-icon>
+        <span>Grid</span>
+      </button>
+      <button mat-button aria-label="List view">
+        <mat-icon>view_list</mat-icon>
+        <span>List</span>
+      </button>
+    </div>
+  </div>
+
+  <ng-container *ngIf="loading; else campaignList">
+    <div class="loading-container">
+      <mat-spinner diameter="60" color="accent"></mat-spinner>
+      <p class="loading-text">Loading your campaigns...</p>
+    </div>
+  </ng-container>
+
+  <ng-template #campaignList>
+    <div *ngIf="dataSource.data.length === 0" class="empty-state mat-elevation-z2">
+      <mat-icon class="empty-icon">campaign</mat-icon>
+      <h2>No campaigns found</h2>
+      <p>Get started by creating your first marketing campaign to engage your customers and drive loyalty.</p>
+      <button mat-raised-button color="primary" (click)="openCreateDialog()">
+        <mat-icon>add_circle</mat-icon>
+        Create Your First Campaign
+      </button>
+    </div>
+
+    <div *ngIf="dataSource.data.length > 0" class="campaigns-section animate-in">
+      <div class="section-header">
+        <h2 class="section-title">All Campaigns <span class="campaign-count">{{totalItems}}</span></h2>
+        <div class="sort-controls">
+          <button mat-button [matMenuTriggerFor]="sortMenu">
+            <mat-icon>sort</mat-icon>
+            <span>Sort</span>
+          </button>
+          <mat-menu #sortMenu="matMenu">
+            <button mat-menu-item (click)="sortField = 'startDate'; sortDirection = 'desc'; loadCampaigns()">
+              <mat-icon>date_range</mat-icon>
+              <span>Start Date (Newest)</span>
+            </button>
+            <button mat-menu-item (click)="sortField = 'startDate'; sortDirection = 'asc'; loadCampaigns()">
+              <mat-icon>date_range</mat-icon>
+              <span>Start Date (Oldest)</span>
+            </button>
+            <button mat-menu-item (click)="sortField = 'name'; sortDirection = 'asc'; loadCampaigns()">
+              <mat-icon>sort_by_alpha</mat-icon>
+              <span>Name (A-Z)</span>
+            </button>
+            <button mat-menu-item (click)="sortField = 'status'; sortDirection = 'asc'; loadCampaigns()">
+              <mat-icon>label</mat-icon>
+              <span>Status</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+
+      <div class="campaign-grid">
+        <mat-card class="campaign-card mat-elevation-z4" *ngFor="let campaign of dataSource.data; let i = index" [style.animation-delay]="i * 0.05 + 's'">
+          <div class="campaign-ribbon" [ngClass]="{'active': campaign.status === 'Active', 'inactive': campaign.status !== 'Active'}"></div>
+          <mat-card-header>
+            <mat-card-title class="truncate-text">{{ campaign.name }}</mat-card-title>
+            <mat-chip-listbox>
+              <mat-chip [color]="campaign.status === 'Active' ? 'primary' : 'warn'" selected>
+                <mat-icon>{{ campaign.status === 'Active' ? 'check_circle' : 'cancel' }}</mat-icon>
+                {{ campaign.status }}
+              </mat-chip>
+            </mat-chip-listbox>
+          </mat-card-header>
+          
+          <mat-card-content>
+            <p class="campaign-description">{{ campaign.description }}</p>
+            
+            <div class="campaign-meta">
+              <div class="meta-item">
+                <mat-icon color="primary">event</mat-icon>
+                <span>Start: {{ campaign.startDate | date:'MMM d, y' }}</span>
+              </div>
+              <div class="meta-item">
+                <mat-icon color="accent">event_busy</mat-icon>
+                <span>End: {{ campaign.endDate | date:'MMM d, y' }}</span>
+              </div>
+            </div>
+          </mat-card-content>
+          
+          <mat-card-actions>
+            <button mat-icon-button color="primary" (click)="openEditDialog(campaign)" matTooltip="Edit Campaign">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="$event.stopPropagation()" [matMenuTriggerFor]="actionMenu" matTooltip="More Actions">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #actionMenu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>visibility</mat-icon>
+                <span>View Details</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>content_copy</mat-icon>
+                <span>Duplicate</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>analytics</mat-icon>
+                <span>Analytics</span>
+              </button>
+              <mat-divider></mat-divider>
+              <button mat-menu-item color="warn" (click)="confirmDelete(campaign)">
+                <mat-icon color="warn">delete</mat-icon>
+                <span class="text-warn">Delete</span>
+              </button>
+            </mat-menu>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+
+      <mat-paginator 
+        [length]="totalItems" 
+        [pageSize]="pageSize" 
+        [pageSizeOptions]="[6, 12, 24, 48]" 
+        [pageIndex]="pageIndex" 
+        showFirstLastButtons 
+        aria-label="Select page of campaigns">
+      </mat-paginator>
+    </div>
+  </ng-template>
+</div>

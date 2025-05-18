@@ -1,0 +1,401 @@
+:root {
+  --primary-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --background-color: #fbfbfd;
+  --card-background: #ffffff;
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --accent-color: #0066cc;
+  --accent-hover: #0071e3;
+  --success-color: #34c759;
+  --warning-color: #ff9500;
+  --error-color: #ff3b30;
+  --divider-color: rgba(0, 0, 0, 0.05);
+  --tier-gold: #d4af37;
+  --tier-silver: #c0c0c0;
+  --tier-bronze: #cd7f32;
+}
+
+.dashboard-container {
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+  font-family: var(--primary-font);
+  background-color: var(--background-color);
+  -webkit-font-smoothing: antialiased;
+}
+
+// Profile Card Styles
+.profile-card {
+  border-radius: 16px;
+  margin-bottom: 20px;
+  padding: 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  
+  .profile-header {
+    background: linear-gradient(135deg, var(--accent-color) 0%, #004e9a 100%);
+    padding: 30px;
+    color: white;
+    position: relative;
+    
+    .user-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      
+      .avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 16px;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      
+      .user-details {
+        flex: 1;
+        
+        h2 {
+          margin: 0 0 4px 0;
+          font-size: 24px;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+        }
+        
+        .tier-badge {
+          display: inline-block;
+          padding: 4px 12px;
+          border-radius: 20px;
+          font-size: 12px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          background: rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(5px);
+          
+          &.gold {
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--tier-gold);
+          }
+          
+          &.silver {
+            background: rgba(192, 192, 192, 0.2);
+            color: var(--tier-silver);
+          }
+          
+          &.bronze {
+            background: rgba(205, 127, 50, 0.2);
+            color: var(--tier-bronze);
+          }
+        }
+      }
+      
+      .points-display {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        
+        .points-value {
+          font-size: 30px;
+          font-weight: 700;
+          letter-spacing: -0.03em;
+        }
+        
+        .points-label {
+          font-size: 14px;
+          opacity: 0.8;
+        }
+      }
+    }
+    
+    .tier-progress {
+      margin-top: 5px;
+      
+      .progress-label {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        font-size: 14px;
+        
+        .next-tier {
+          opacity: 0.8;
+        }
+      }
+      
+      ::ng-deep .mat-mdc-progress-bar {
+        height: 8px;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.2);
+        
+        .mdc-linear-progress__bar-inner {
+          border-radius: 4px;
+        }
+      }
+      
+      .tier-benefits {
+        margin-top: 12px;
+        font-size: 13px;
+        opacity: 0.85;
+        font-style: italic;
+      }
+    }
+  }
+}
+
+// Rewards Card Styles
+.rewards-card {
+  border-radius: 16px;
+  margin-bottom: 20px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  
+  mat-card-header {
+    background-color: var(--card-background);
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--divider-color);
+    
+    mat-card-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+  }
+  
+  mat-card-content {
+    padding: 0;
+    
+    table {
+      width: 100%;
+      box-shadow: none !important;
+      background: transparent;
+      
+      th.mat-header-cell {
+        color: var(--text-secondary);
+        font-size: 12px;
+        font-weight: 500;
+        padding: 12px 24px;
+        border-bottom: 1px solid var(--divider-color);
+      }
+      
+      td.mat-cell {
+        padding: 16px 24px;
+        font-size: 14px;
+        color: var(--text-primary);
+        border-bottom: 1px solid var(--divider-color);
+        
+        .mat-badge-content {
+          background-color: var(--accent-color);
+          font-size: 10px;
+          padding: 0 4px;
+          border-radius: 10px;
+          height: auto;
+          min-width: auto;
+          line-height: 16px;
+        }
+        
+        mat-icon[color="warn"] {
+          color: var(--tier-gold);
+        }
+        
+        button {
+          background-color: var(--accent-color);
+          color: white;
+          border-radius: 20px;
+          font-size: 13px;
+          padding: 4px 16px;
+          min-width: 80px;
+          line-height: 28px;
+          
+          &:hover {
+            background-color: var(--accent-hover);
+          }
+        }
+      }
+      
+      tr.mat-row {
+        transition: background-color 0.2s ease;
+        
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.02);
+        }
+      }
+    }
+    
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 50px 20px;
+      text-align: center;
+      
+      mat-icon {
+        font-size: 48px;
+        height: 48px;
+        width: 48px;
+        margin-bottom: 16px;
+        color: var(--text-secondary);
+        opacity: 0.5;
+      }
+      
+      p {
+        color: var(--text-secondary);
+        font-size: 16px;
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Activity Card Styles
+.activity-card {
+  border-radius: 16px;
+  margin-bottom: 20px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  
+  mat-card-header {
+    background-color: var(--card-background);
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--divider-color);
+    
+    mat-card-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+  }
+  
+  mat-card-content {
+    padding: 0;
+    
+    mat-list {
+      padding: 0;
+      
+      mat-list-item {
+        height: auto;
+        border-bottom: 1px solid var(--divider-color);
+        margin-bottom: 0;
+        
+        ::ng-deep .mat-mdc-list-item-unscoped-content {
+          display: flex;
+          width: 100%;
+          padding: 16px 24px;
+          box-sizing: border-box;
+          
+          div[matLine] {
+            color: var(--text-primary);
+            font-size: 14px;
+            margin-bottom: 4px;
+          }
+          
+          .activity-date {
+            color: var(--text-secondary);
+            font-size: 12px;
+          }
+          
+          .activity-points {
+            margin-left: auto;
+            font-weight: 600;
+            font-size: 14px;
+            
+            &.earn {
+              color: var(--success-color);
+            }
+            
+            &.redeem {
+              color: var(--error-color);
+            }
+          }
+        }
+        
+        ::ng-deep .mat-mdc-list-item-icon {
+          margin-right: 16px;
+        }
+      }
+    }
+    
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 50px 20px;
+      text-align: center;
+      
+      mat-icon {
+        font-size: 48px;
+        height: 48px;
+        width: 48px;
+        margin-bottom: 16px;
+        color: var(--text-secondary);
+        opacity: 0.5;
+      }
+      
+      p {
+        color: var(--text-secondary);
+        font-size: 16px;
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media screen and (max-width: 768px) {
+  .dashboard-container {
+    padding: 10px;
+  }
+  
+  .profile-card .profile-header {
+    padding: 20px;
+    
+    .user-info {
+      flex-direction: column;
+      align-items: flex-start;
+      
+      .avatar {
+        margin-bottom: 16px;
+      }
+      
+      .points-display {
+        align-items: flex-start;
+        margin-top: 16px;
+      }
+    }
+  }
+  
+  .rewards-card, .activity-card {
+    mat-card-content {
+      table {
+        th.mat-header-cell, td.mat-cell {
+          padding: 12px 16px;
+        }
+        
+        .mat-column-description {
+          display: none;
+        }
+      }
+      
+      mat-list {
+        mat-list-item {
+          ::ng-deep .mat-mdc-list-item-unscoped-content {
+            padding: 12px 16px;
+          }
+        }
+      }
+    }
+  }
+}

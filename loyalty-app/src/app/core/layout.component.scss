@@ -1,0 +1,91 @@
+:host {
+  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+  font-size: 1.05rem;
+  background: linear-gradient(135deg, #f4f6fa 0%, #e3e9f6 100%);
+  min-height: 100vh;
+  color: #222;
+}
+
+.main-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  min-height: 64px;
+  background: linear-gradient(90deg, #1976d2 0%, #42a5f5 100%);
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.08);
+  .app-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .spacer {
+    flex: 1 1 auto;
+  }
+  a[mat-button] {
+    color: #fff;
+    font-weight: 500;
+    margin-left: 0.5rem;
+    border-bottom: 2.5px solid transparent;
+    transition: background 0.2s, border-bottom 0.2s;
+    &.active-link {
+      background: rgba(255,255,255,0.18);
+      border-radius: 6px 6px 0 0;
+      border-bottom: 2.5px solid #fff;
+    }
+    &:hover {
+      background: rgba(255,255,255,0.12);
+      border-bottom: 2.5px solid #bbdefb;
+    }
+  }
+}
+
+.main-content {
+  padding: 2.5rem 0 0 0;
+  min-height: calc(100vh - 64px);
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1.5px 4px rgba(0,0,0,0.04);
+}
+
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 1.5rem 0 1rem 0;
+  color: #888;
+  font-size: 0.95rem;
+  background: transparent;
+}
+
+@media (max-width: 900px) {
+  .main-toolbar {
+    padding: 0 0.5rem;
+    min-height: 56px;
+    .app-title {
+      font-size: 1.1rem;
+    }
+  }
+  .main-content {
+    padding-top: 1rem;
+  }
+  .container {
+    padding: 1rem 0.5rem;
+    max-width: 98vw;
+  }
+} 

@@ -1,0 +1,116 @@
+.loyalty-list-card {
+  margin: 2rem auto;
+  max-width: 1200px;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1.5px 4px rgba(0,0,0,0.04);
+  background: #fff;
+  padding: 0;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  padding: 1.2rem 2rem 1rem 2rem;
+  background: linear-gradient(90deg, #7b1fa2 0%, #ba68c8 100%);
+  color: #fff;
+  border-radius: 18px 18px 0 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  .spacer { flex: 1 1 auto; }
+  .title { letter-spacing: 0.5px; }
+  button { margin-left: 1rem; }
+}
+
+.filter-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1.2rem 2rem 0.5rem 2rem;
+  .filter-field {
+    min-width: 320px;
+    max-width: 400px;
+    width: 100%;
+  }
+}
+
+.table-container {
+  position: relative;
+  padding: 1rem 2rem 2rem 2rem;
+  overflow-x: auto;
+  .mat-table {
+    background: #fafbfc;
+    border-radius: 12px;
+    font-size: 1rem;
+    min-width: 900px;
+  }
+  th.mat-header-cell {
+    font-weight: 700;
+    color: #7b1fa2;
+    background: #f8f5ff;
+    letter-spacing: 0.03em;
+  }
+  td.mat-cell {
+    color: #333;
+    vertical-align: middle;
+  }
+  .mat-row:hover {
+    background: #ede7f6;
+    transition: background 0.2s;
+  }
+  .mat-paginator {
+    margin-top: 1.5rem;
+  }
+  button[mat-icon-button] {
+    margin-right: 0.25rem;
+  }
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255,255,255,0.7);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.empty-state {
+  text-align: center;
+  color: #888;
+  margin-top: 2rem;
+  .empty-illustration {
+    width: 180px;
+    margin-bottom: 1.2rem;
+    opacity: 0.8;
+  }
+  p {
+    font-size: 1.1rem;
+    a {
+      color: #7b1fa2;
+      text-decoration: underline;
+      cursor: pointer;
+      &:hover {
+        color: #4a148c;
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .loyalty-list-card {
+    max-width: 98vw;
+  }
+  .filter-row, .table-container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .card-header {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-size: 1.05rem;
+  }
+  .table-container .mat-table {
+    min-width: 600px;
+  }
+}

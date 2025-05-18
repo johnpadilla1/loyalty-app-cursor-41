@@ -1,0 +1,119 @@
+<div class="dashboard-container">
+  <!-- Profile Card -->
+  <mat-card class="profile-card">
+    <div class="profile-header">
+      <div class="user-info">
+        <div class="avatar">
+          <img *ngIf="dashboardData?.avatarUrl" [src]="dashboardData.avatarUrl" alt="User avatar">
+          <mat-icon *ngIf="!dashboardData?.avatarUrl">account_circle</mat-icon>
+        </div>
+        <div class="user-details">
+          <h2>{{ dashboardData?.name || 'Welcome Back' }}</h2>
+          <span class="tier-badge" [ngClass]="dashboardData?.tier?.toLowerCase()">{{ dashboardData?.tier }}</span>
+        </div>
+        <div class="points-display">
+          <span class="points-value">{{ dashboardData?.points || 0 }}</span>
+          <span class="points-label">Points</span>
+        </div>
+      </div>
+      
+      <div class="tier-progress">
+        <div class="progress-label">
+          <span>Progress to {{ dashboardData?.nextTier }}</span>
+          <span class="next-tier">{{ dashboardData?.tierProgress }}%</span>
+        </div>
+        <mat-progress-bar mode="determinate" [value]="dashboardData?.tierProgress" color="accent"></mat-progress-bar>
+        <div class="tier-benefits">
+          <span>{{ dashboardData?.tierBenefits }}</span>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+
+  <!-- Rewards Card -->
+  <mat-card class="rewards-card">
+    <mat-card-header>
+      <mat-card-title>Available Rewards</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <table mat-table [dataSource]="dashboardData?.availableRewards" *ngIf="dashboardData?.availableRewards?.length">
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let reward">
+            <span [matBadge]="reward.isNew ? 'NEW' : ''" matBadgeColor="accent" matBadgeHidden="!reward.isNew">{{ reward.name }}</span>
+          </td>
+        </ng-container>
+        
+        <!-- Description Column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>Description</th>
+          <td mat-cell *matCellDef="let reward">{{ reward.description }}</td>
+        </ng-container>
+        
+        <!-- Points Cost Column -->
+        <ng-container matColumnDef="pointsCost">
+          <th mat-header-cell *matHeaderCellDef>Points Cost</th>
+          <td mat-cell *matCellDef="let reward">{{ reward.pointsCost }}</td>
+        </ng-container>
+        
+        <!-- Exclusive Column -->
+        <ng-container matColumnDef="exclusive">
+          <th mat-header-cell *matHeaderCellDef>Exclusive</th>
+          <td mat-cell *matCellDef="let reward">
+            <mat-icon *ngIf="reward.exclusive" color="warn" matTooltip="Exclusive reward">star</mat-icon>
+            <span *ngIf="!reward.exclusive">-</span>
+          </td>
+        </ng-container>
+        
+        <!-- Expiry Date Column -->
+        <ng-container matColumnDef="expiryDate">
+          <th mat-header-cell *matHeaderCellDef>Expiry Date</th>
+          <td mat-cell *matCellDef="let reward">{{ reward.expiryDate | date }}</td>
+        </ng-container>
+        
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let reward">
+            <button mat-flat-button (click)="redeemReward(reward.id)" matTooltip="Redeem this reward">Redeem</button>
+          </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      
+      <div *ngIf="!dashboardData?.availableRewards?.length" class="empty-state">
+        <mat-icon>card_giftcard</mat-icon>
+        <p>No rewards available at this time.</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Activity Card -->
+  <mat-card class="activity-card">
+    <mat-card-header>
+      <mat-card-title>Recent Activity</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list *ngIf="dashboardData?.recentActivity?.length">
+        <mat-list-item *ngFor="let activity of dashboardData?.recentActivity">
+          <mat-icon matListIcon [color]="activity.type === 'earn' ? 'primary' : 'accent'">
+            {{ activity.type === 'earn' ? 'add_circle' : 'redeem' }}
+          </mat-icon>
+          <div matLine>{{ activity.description }}</div>
+          <div matLine class="activity-date">{{ activity.date | date }}</div>
+          <span class="activity-points" [ngClass]="{'earn': activity.type === 'earn', 'redeem': activity.type === 'redeem'}">
+            {{ activity.points > 0 ? '+' : '' }}{{ activity.points }} pts
+          </span>
+        </mat-list-item>
+      </mat-list>
+      
+      <div *ngIf="!dashboardData?.recentActivity?.length" class="empty-state">
+        <mat-icon>history</mat-icon>
+        <p>No recent activity.</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

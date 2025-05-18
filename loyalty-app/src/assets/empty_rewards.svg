@@ -1,0 +1,7 @@
+<svg width="160" height="120" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="10" y="30" width="140" height="60" rx="12" fill="#E3E9F6"/>
+  <circle cx="80" cy="60" r="22" fill="#BBDEFB"/>
+  <path d="M60 80 Q80 100 100 80" stroke="#90CAF9" stroke-width="4" fill="none"/>
+  <circle cx="80" cy="60" r="10" fill="#fff"/>
+  <text x="80" y="115" text-anchor="middle" fill="#90A4AE" font-size="14">No Rewards</text>
+</svg> 
