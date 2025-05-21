@@ -1,0 +1,427 @@
+// Define local gradient for toolbar, similar to reward-list and campaign-list
+:host {
+  --primary-gradient: linear-gradient(135deg, #1976d2 0%, #2196f3 100%); 
+}
+
+// Base container styling (from reward-list.scss / campaign-list.scss)
+.container {
+  max-width: 1300px;
+  margin: 32px auto;
+  padding: 0 24px;
+  animation: fadeIn 500ms ease-out;
+}
+
+// Toolbar styling (from reward-list.scss)
+.mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--primary-gradient) !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  padding: 0 24px;
+  height: 72px;
+  color: #fff;
+
+  .toolbar-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .brand-icon {
+      font-size: 28px;
+      height: 28px;
+      width: 28px;
+    }
+  }
+
+  .app-title {
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: -0.01em;
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 24px;
+      height: 3px;
+      background: white;
+      border-radius: 3px;
+    }
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  button.mat-flat-button { // For "New Tier" button
+    border-radius: 28px;
+    padding: 0 24px;
+    height: 44px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+    transition: var(--transition-standard);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+    &:active {
+      transform: translateY(-1px) scale(0.98); // Active state
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+    }
+
+    .mat-icon {
+      margin-right: 8px;
+    }
+  }
+}
+
+// Actions bar for search/filter (from reward-list.scss)
+.actions-bar {
+  display: flex;
+  justify-content: space-between; 
+  margin-bottom: 32px;
+  align-items: center;
+
+  .search-field {
+    width: 100%; 
+    max-width: 480px; 
+    transition: var(--transition-standard);
+
+    &:focus-within {
+      transform: translateY(-2px);
+      ::ng-deep .mat-mdc-form-field-focus-overlay {
+        opacity: 0.08; 
+      }
+    }
+    
+    ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-notched-outline__leading,
+    ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-notched-outline__notch,
+    ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-notched-outline__trailing {
+      border-color: var(--divider-color);
+    }
+
+    ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__leading,
+    ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__notch,
+    ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__trailing {
+      border-color: var(--accent-color);
+    }
+     ::ng-deep .mdc-floating-label {
+        color: var(--text-secondary); 
+      }
+    ::ng-deep .mat-mdc-form-field.mat-focused .mdc-floating-label {
+      color: var(--accent-color);
+    }
+
+    ::ng-deep .mat-mdc-form-field-flex { 
+      background-color: var(--card-background);
+      border-radius: 12px; 
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      transition: var(--transition-standard);
+    }
+     ::ng-deep .mat-mdc-form-field-infix {
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+  }
+}
+
+// Table container styling (adapted from .rewards-table-container)
+.tiers-table-container {
+  background-color: var(--card-background);
+  border-radius: 16px; 
+  box-shadow: var(--card-shadow);
+  overflow: hidden; 
+  margin-bottom: 32px;
+
+  table[mat-table] {
+    width: 100%;
+    background-color: transparent;
+
+    th.mat-header-cell {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--divider-color);
+      background-color: rgba(0,0,0,0.02); 
+    }
+
+    td.mat-cell {
+      color: var(--text-primary);
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--divider-color);
+      vertical-align: middle;
+
+      &.description-cell { // For benefits column
+        max-width: 250px; // Adjust as needed for benefits
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    
+    .actions-header-cell {
+      text-align: right; 
+    }
+    .actions-cell {
+      text-align: right; 
+       button[mat-icon-button] {
+        transition: transform var(--transition-standard), background-color var(--transition-standard); // Use standard transition
+        &:hover {
+          transform: scale(1.1);
+          background-color: rgba(var(--accent-color-rgb, 0, 102, 204), 0.08); // Subtle background on hover
+        }
+        &:active {
+          transform: scale(1.05); // Slightly less scale on active
+          background-color: rgba(var(--accent-color-rgb, 0, 102, 204), 0.12);
+        }
+      }
+    }
+
+    tr.mat-row:last-of-type td.mat-cell {
+      border-bottom: none;
+    }
+
+    tr.mat-row {
+      transition: all var(--transition-standard); // Added transition for smooth hover
+    }
+
+    tr.mat-row:hover {
+      background-color: rgba(var(--accent-color-rgb, 0, 102, 204), 0.04); // Use accent color based hover
+      transform: translateY(-2px); // Slight lift
+      box-shadow: var(--card-shadow-hover); // Apply hover shadow to the row
+      border-radius: 8px; // Optional: round corners on hover if table container has overflow:visible
+
+      // Ensure cells within the hovered row don't show their individual bottom borders if they exist
+      td.mat-cell {
+        border-bottom-color: transparent;
+      }
+    }
+        
+    .delete-button { // Specific class for delete button color
+      color: var(--error-color);
+    }
+  }
+}
+
+// Paginator styling (from reward-list.scss)
+::ng-deep .mat-mdc-paginator {
+  border-radius: 0 0 16px 16px; 
+  box-shadow: none; 
+  background-color: var(--card-background); 
+  margin-top: 0; 
+
+  .mat-mdc-paginator-container {
+    padding: 8px 16px;
+    min-height: 56px;
+  }
+
+  .mat-mdc-paginator-range-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  .mat-mdc-icon-button {
+    transition: var(--transition-standard);
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+  }
+}
+
+// Loading and Empty State styling (from reward-list.scss)
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 350px; 
+  gap: 20px;
+
+  ::ng-deep .mat-mdc-progress-spinner circle { 
+    stroke: var(--accent-color) !important;
+  }
+  
+  .loading-text {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin: 0;
+    animation: pulse 1.5s infinite ease-in-out;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  margin: 60px 0; 
+  padding: 48px 32px; 
+  background: var(--card-background); 
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  transition: var(--transition-standard);
+
+  .empty-icon {
+    font-size: 72px; 
+    margin-bottom: 24px;
+    // color: var(--accent-color); 
+    // opacity: 0.6;
+    background: var(--primary-gradient, linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 100%)); // Fallback to accent gradient
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 4px rgba(var(--accent-color-rgb, 0, 102, 204), 0.2));
+  }
+
+  h2 {
+    font-weight: 600; 
+    font-size: 2rem; 
+    margin-bottom: 16px;
+    color: var(--text-primary);
+  }
+
+  p {
+    color: var(--text-secondary);
+    font-size: 1.1rem; 
+    margin-bottom: 32px;
+    max-width: 450px; 
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  button[mat-raised-button] { 
+    border-radius: 28px;
+    padding: 0 32px;
+    height: 48px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    background-color: var(--accent-color);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: var(--transition-standard);
+
+    .mat-icon {
+      margin-right: 8px;
+    }
+
+    &:hover {
+      background-color: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(var(--accent-color-rgb, 0, 102, 204), 0.3); 
+    }
+    &:active {
+      transform: translateY(-1px) scale(0.98); // Active state
+      box-shadow: 0 4px 12px rgba(var(--accent-color-rgb, 0, 102, 204), 0.2);
+    }
+  }
+}
+
+// Animations (from reward-list.scss)
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); } 
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp { 
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in { 
+  animation: fadeInUp 600ms var(--transition-decelerate) forwards;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+// Responsive styles (adapted from reward-list.scss)
+@media (max-width: 960px) {
+  .container {
+    padding: 0 16px;
+    margin-top: 24px; 
+    margin-bottom: 24px;
+  }
+
+  .actions-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    margin-bottom: 24px;
+
+    .search-field {
+      width: 100%;
+    }
+  }
+  
+  .tiers-table-container { // Renamed from .rewards-table-container
+     th.mat-header-cell, td.mat-cell {
+        padding-left: 12px;
+        padding-right: 12px;
+     }
+     // Example of hiding columns on smaller screens:
+     // .mat-column-maxPoints, .mat-column-multiplier { display: none; }
+  }
+}
+
+@media (max-width: 599px) {
+  .mat-toolbar {
+    height: auto;
+    padding: 12px 16px; 
+    flex-wrap: wrap; 
+    gap: 12px;
+
+    .app-title {
+      font-size: 1.3rem;
+    }
+     button.mat-flat-button { 
+      padding: 0 16px;
+      height: 40px;
+      font-size: 0.9rem;
+    }
+  }
+  
+  .container {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+
+  .empty-state {
+    padding: 32px 20px; 
+    margin: 32px 0;
+    h2 { font-size: 1.8rem; }
+    p { font-size: 1rem; }
+    button[mat-raised-button] { height: 44px; padding: 0 24px; }
+  }
+
+  .tiers-table-container { // Renamed
+    // Example of more aggressive hiding for very small screens:
+     .mat-column-maxPoints, .mat-column-multiplier, .mat-column-benefits { display: none; }
+     th.mat-header-cell, td.mat-cell { font-size: 0.8rem; }
+  }
+}
+
+// Fallback for --accent-color-rgb if not globally defined
+// This is a common pattern if you use rgba(var(--some-rgb-color), opacity)
+// For now, the hover effect on the empty state button uses a direct rgba value as a fallback.
+// If --accent-color is #0066cc, its RGB is 0, 102, 204.
+// box-shadow: 0 8px 16px rgba(0, 102, 204, 0.3); is used in empty state button hover.
+// This comment is just for awareness.

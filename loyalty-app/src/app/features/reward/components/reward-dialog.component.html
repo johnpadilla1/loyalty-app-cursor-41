@@ -1,19 +1,19 @@
 <h2 mat-dialog-title>{{ isEdit ? 'Edit Reward' : 'Add Reward' }}</h2>
 <form [formGroup]="form" (ngSubmit)="save()" mat-dialog-content>
-  <mat-form-field appearance="fill" class="full-width">
+  <mat-form-field appearance="outline" class="full-width">
     <mat-label>Name</mat-label>
     <input matInput formControlName="name" required maxlength="255">
     <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required</mat-error>
     <mat-error *ngIf="form.get('name')?.hasError('maxlength')">Max 255 characters</mat-error>
   </mat-form-field>
 
-  <mat-form-field appearance="fill" class="full-width">
+  <mat-form-field appearance="outline" class="full-width">
     <mat-label>Description</mat-label>
     <textarea matInput formControlName="description" required></textarea>
     <mat-error *ngIf="form.get('description')?.hasError('required')">Description is required</mat-error>
   </mat-form-field>
 
-  <mat-form-field appearance="fill" class="full-width">
+  <mat-form-field appearance="outline" class="full-width">
     <mat-label>Points Cost</mat-label>
     <input matInput type="number" formControlName="pointsCost" required min="1">
     <mat-error *ngIf="form.get('pointsCost')?.hasError('required')">Points cost is required</mat-error>
@@ -22,7 +22,7 @@
 
   <mat-checkbox formControlName="exclusive">Exclusive Reward</mat-checkbox>
 
-  <mat-form-field appearance="fill" class="full-width">
+  <mat-form-field appearance="outline" class="full-width">
     <mat-label>Expiry Date</mat-label>
     <input matInput [matDatepicker]="picker" formControlName="expiryDate" required>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
