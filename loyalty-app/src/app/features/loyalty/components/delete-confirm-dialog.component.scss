@@ -1,0 +1,110 @@
+// Host styling for the dialog panel
+:host {
+  display: block; 
+  max-width: 450px; 
+  margin: auto;
+
+  ::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    background-color: var(--card-background);
+    padding: 0 !important; 
+  }
+}
+
+// Dialog Title
+h2[mat-dialog-title],
+::ng-deep .mat-mdc-dialog__title {
+  font-size: 1.3rem; 
+  font-weight: 600;
+  color: var(--text-primary);
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--divider-color);
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+
+  .title-icon {
+    margin-right: 12px;
+    color: var(--error-color); 
+    font-size: 28px;
+    height: 28px;
+    width: 28px;
+  }
+}
+
+// Dialog Content
+mat-dialog-content,
+::ng-deep .mat-mdc-dialog__content {
+  padding: 24px;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
+
+  p {
+    margin: 0;
+    &:not(:last-child) {
+      margin-bottom: 8px; // Add space if there are multiple paragraphs
+    }
+  }
+
+  strong {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+}
+
+// Dialog Actions
+mat-dialog-actions,
+::ng-deep .mat-mdc-dialog__actions {
+  padding: 16px 24px 20px 24px;
+  gap: 8px;
+  border-top: 1px solid var(--divider-color);
+  justify-content: flex-end;
+}
+
+// General Button Styles
+button[mat-button], button[mat-flat-button] {
+  border-radius: 20px;
+  padding: 0 20px;
+  height: 40px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: var(--transition-standard);
+  box-shadow: none;
+}
+
+// Cancel Button (mat-button)
+button[mat-button] {
+  color: var(--text-secondary);
+  background-color: transparent;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+  &:active {
+    background-color: rgba(0, 0, 0, 0.08); // Slightly darker for active
+  }
+}
+
+// Delete Button (mat-flat-button color="warn")
+button[mat-flat-button][color="warn"] {
+  background-color: var(--error-color);
+  color: #ffffff;
+
+  &:hover {
+    background-color: #d32f2f; 
+    box-shadow: 0 2px 8px rgba(var(--error-color-rgb, 255, 59, 48), 0.3); // Use var for color
+  }
+  &:active {
+    background-color: #c62828; // Even darker for active
+    transform: scale(0.98);
+    box-shadow: 0 1px 4px rgba(var(--error-color-rgb, 255, 59, 48), 0.2);
+  }
+
+  &:disabled {
+    background-color: rgba(0, 0, 0, 0.12);
+    color: rgba(0, 0, 0, 0.38);
+    box-shadow: none;
+  }
+}

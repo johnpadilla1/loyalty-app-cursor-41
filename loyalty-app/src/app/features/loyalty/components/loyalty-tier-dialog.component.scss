@@ -1,0 +1,128 @@
+:host {
+  display: block;
+  max-width: 500px; // Consistent with reward-dialog
+  margin: auto;
+
+  ::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    background-color: var(--card-background);
+  }
+}
+
+h2[mat-dialog-title],
+::ng-deep .mat-mdc-dialog__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  padding: 24px 24px 20px 24px;
+  border-bottom: 1px solid var(--divider-color);
+  margin-bottom: 0;
+}
+
+mat-dialog-content,
+::ng-deep .mat-mdc-dialog__content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .full-width {
+    width: 100%;
+  }
+}
+
+// Form Field Overrides from reward-dialog.component.scss
+::ng-deep .mat-mdc-form-field {
+  .mdc-text-field--outlined {
+    .mdc-notched-outline {
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: var(--divider-color) !important;
+      }
+    }
+    &.mdc-text-field--focused {
+      .mdc-notched-outline {
+        .mdc-notched-outline__leading,
+        .mdc-notched-outline__notch,
+        .mdc-notched-outline__trailing {
+          border-color: var(--accent-color) !important;
+          border-width: 2px !important;
+        }
+      }
+      .mdc-floating-label {
+        color: var(--accent-color) !important;
+      }
+    }
+  }
+
+  .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+    color: var(--text-primary);
+  }
+
+  .mdc-floating-label {
+    color: var(--text-secondary);
+  }
+
+   .mat-mdc-text-field-wrapper {
+     padding-bottom: 0;
+   }
+   .mat-mdc-form-field-subscript-wrapper {
+     padding-top: 4px;
+   }
+}
+
+// mat-checkbox styles are omitted as they are not used in loyalty-tier-dialog.html
+
+mat-dialog-actions,
+::ng-deep .mat-mdc-dialog__actions {
+  padding: 20px 24px 24px 24px;
+  gap: 8px;
+  border-top: 1px solid var(--divider-color);
+  justify-content: flex-end;
+}
+
+// Button Styles from reward-dialog.component.scss
+button[mat-button], button[mat-flat-button] {
+  border-radius: 20px;
+  padding: 0 20px;
+  height: 40px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: var(--transition-standard);
+  box-shadow: none;
+}
+
+button[mat-button] { // Cancel button
+  color: var(--text-secondary);
+  background-color: transparent;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+  &:active {
+    background-color: rgba(0, 0, 0, 0.08); // Slightly darker for active
+  }
+}
+
+button[mat-flat-button][color="primary"] { // Save/Update button
+  background-color: var(--accent-color);
+  color: #ffffff;
+
+  &:hover {
+    background-color: var(--accent-hover);
+    box-shadow: 0 2px 8px rgba(var(--accent-color-rgb, 0, 102, 204), 0.3);
+  }
+  &:active {
+    background-color: var(--accent-hover); // Can be same as hover or slightly darker
+    transform: scale(0.98);
+    box-shadow: 0 1px 4px rgba(var(--accent-color-rgb, 0, 102, 204), 0.2);
+  }
+
+  &:disabled {
+    background-color: rgba(0, 0, 0, 0.12);
+    color: rgba(0, 0, 0, 0.38);
+    box-shadow: none;
+  }
+}

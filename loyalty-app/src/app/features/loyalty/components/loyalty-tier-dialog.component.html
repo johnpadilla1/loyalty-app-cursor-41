@@ -1,1 +1,34 @@
-<p>loyalty-tier-dialog works!</p>
+<h2 mat-dialog-title>{{ data.isEdit ? 'Edit Loyalty Tier' : 'Add Loyalty Tier' }}</h2>
+<form [formGroup]="form" (ngSubmit)="save()" mat-dialog-content>
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Tier Name</mat-label>
+    <input matInput formControlName="name" required maxlength="100">
+    <mat-error *ngIf="form.get('name')?.hasError('required')">Tier name is required</mat-error>
+    <mat-error *ngIf="form.get('name')?.hasError('maxlength')">Max 100 characters</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Minimum Points</mat-label>
+    <input matInput type="number" formControlName="minPoints" required min="0">
+    <mat-error *ngIf="form.get('minPoints')?.hasError('required')">Minimum points are required</mat-error>
+    <mat-error *ngIf="form.get('minPoints')?.hasError('min')">Must be a positive number</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Description / Benefits</mat-label>
+    <textarea matInput formControlName="description" rows="4" required></textarea>
+    <mat-error *ngIf="form.get('description')?.hasError('required')">Description is required</mat-error>
+  </mat-form-field>
+  
+  <!-- Example of a color picker - IF it were simple. For now, let's omit to keep it simpler.
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Tier Color</mat-label>
+    <input matInput type="color" formControlName="color">
+  </mat-form-field> 
+  -->
+
+</form>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancel</button>
+  <button mat-flat-button color="primary" [disabled]="form.invalid" (click)="save()">{{ data.isEdit ? 'Update' : 'Create' }}</button>
+</mat-dialog-actions>
