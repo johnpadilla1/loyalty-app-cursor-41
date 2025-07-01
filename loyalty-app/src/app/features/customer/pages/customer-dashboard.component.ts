@@ -92,6 +92,31 @@ export class CustomerDashboardComponent implements OnInit {
     return Math.max(0, this.dashboardData.nextTierPoints - this.dashboardData.points);
   }
 
+  getCurrentDate(): string {
+    const now = new Date();
+    return now.toLocaleDateString('en-US', { 
+      weekday: 'long', 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+  }
+
+  getTierIcon(tier: string): string {
+    switch (tier?.toLowerCase()) {
+      case 'gold':
+        return 'workspace_premium';
+      case 'silver':
+        return 'military_tech';
+      case 'bronze':
+        return 'emoji_events';
+      case 'platinum':
+        return 'diamond';
+      default:
+        return 'emoji_events';
+    }
+  }
+
   redeemReward(rewardId: number) {
     this.dashboardService.redeemReward(this.customerId, rewardId).subscribe({
       next: () => {
